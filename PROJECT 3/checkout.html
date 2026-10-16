@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NOCTURNE Terminal | Secure Transaction Gateway</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Space Grotesk"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            obsidian: '#09090b',
+            surface: '#121217',
+            surfaceLight: '#181820',
+            violetBrand: '#8b5cf6',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-obsidian text-zinc-100 font-sans antialiased selection:bg-violet-500 selection:text-white min-h-screen">
+
+  <!-- Ambient Glow -->
+  <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[700px] h-[300px] bg-violet-600/10 blur-[140px] pointer-events-none rounded-full"></div>
+
+  <!-- Gateway Header -->
+  <header class="border-b border-zinc-800/80 bg-obsidian/80 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-violet-400 transition">
+        ← Back to Roastery Menu
+      </a>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-[11px] font-mono text-zinc-400 uppercase tracking-wider">256-Bit Encrypted Terminal</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Checkout Container -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+    
+    <!-- Active Checkout Stage -->
+    <div id="checkout-stage" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- Left Column: Payment Instruments (7 cols) -->
+      <section class="lg:col-span-7 space-y-6">
+        <div>
+          <span class="text-[11px] font-bold uppercase tracking-widest text-violet-400 bg-violet-500/10 px-3 py-1 rounded-full border border-violet-500/20">
+            Automated Checkout
+          </span>
+          <h1 class="font-display text-2xl sm:text-3xl font-extrabold mt-3">Select Payment Protocol</h1>
+          <p class="text-xs text-zinc-400 mt-1">Transaction is tokenized and cleared instantly via mock gateway.</p>
+        </div>
+
+        <!-- Method Selector Tabs -->
+        <div class="grid grid-cols-3 gap-2 p-1.5 bg-surface border border-zinc-800 rounded-2xl" id="tab-controls">
+          <button class="pay-tab active py-2.5 rounded-xl text-xs font-bold transition-all bg-violet-600 text-white shadow-md shadow-violet-600/30" data-tab="upi">
+            ⚡ UPI Pay
+          </button>
+          <button class="pay-tab py-2.5 rounded-xl text-xs font-bold transition-all bg-transparent text-zinc-400 hover:text-zinc-200" data-tab="card">
+            💳 Card
+          </button>
+          <button class="pay-tab py-2.5 rounded-xl text-xs font-bold transition-all bg-transparent text-zinc-400 hover:text-zinc-200" data-tab="netbanking">
+            🏦 NetBanking
+          </button>
+        </div>
+
+        <!-- Tab 1: UPI Experience -->
+        <div id="tab-upi" class="bg-surface border border-zinc-800 rounded-3xl p-6 space-y-6">
+          <div class="flex flex-col sm:flex-row items-center gap-6 justify-between border-b border-zinc-800/80 pb-6">
+            <div class="space-y-1 text-center sm:text-left">
+              <span class="text-xs font-bold text-zinc-200">Instant Dynamic QR</span>
+              <p class="text-[11px] text-zinc-400">Scan with GPay, PhonePe, Paytm, or CRED</p>
+              <div class="pt-2 flex items-center justify-center sm:justify-start gap-2 text-[10px] text-emerald-400 font-mono">
+                <span>●</span> Auto-Verifying Intent
+              </div>
+            </div>
+            
+            <!-- Dynamic QR Code SVG Canvas -->
+            <div class="p-3 bg-white rounded-2xl shadow-lg border-2 border-violet-500/30 flex flex-col items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-32 h-32" viewBox="0 0 24 24" fill="none" stroke="#09090b" stroke-width="1.8">
+                <rect x="2" y="2" width="8" height="8" rx="1"/>
+                <rect x="14" y="2" width="8" height="8" rx="1"/>
+                <rect x="2" y="14" width="8" height="8" rx="1"/>
+                <path d="M6 6h.01M18 6h.01M6 18h.01M14 14h2v2h-2zM18 14h4v4h-4zM14 18h2v4h-2zM20 20h2v2h-2z"/>
+              </svg>
+              <span class="text-[9px] font-mono text-zinc-600 mt-1 uppercase font-bold tracking-wider">Nocturne@Terminal</span>
+            </div>
+          </div>
+
+          <!-- Or Enter UPI ID -->
+          <div class="space-y-3">
+            <label class="text-xs font-bold text-zinc-300 block">Or Enter Registered UPI ID</label>
+            <div class="flex gap-2">
+              <input type="text" id="upi-vpa" placeholder="username@okhdfcbank" value="patron@upi" class="bg-obsidian border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 flex-grow focus:outline-none focus:border-violet-500 font-mono" />
+              <button type="button" class="bg-zinc-800 text-zinc-300 text-xs font-bold px-4 rounded-xl hover:bg-zinc-700 transition">Verify</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: Credit / Debit Card -->
+        <div id="tab-card" class="bg-surface border border-zinc-800 rounded-3xl p-6 space-y-4 hidden">
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-zinc-300">Cardholder Name</label>
+            <input type="text" id="card-holder" placeholder="ALEX MERCER" class="w-full bg-obsidian border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-violet-500 uppercase tracking-wider" />
+          </div>
+
+          <div class="space-y-1">
+            <label class="text-xs font-bold text-zinc-300">Card Number</label>
+            <input type="text" id="card-num" placeholder="4242 •••• •••• 4242" value="4242 8812 9901 4242" class="w-full bg-obsidian border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-violet-500 font-mono" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-zinc-300">Expiry (MM/YY)</label>
+              <input type="text" id="card-exp" placeholder="08/29" value="12/28" class="w-full bg-obsidian border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-violet-500 font-mono text-center" />
+            </div>
+            <div class="space-y-1">
+              <label class="text-xs font-bold text-zinc-300">CVV</label>
+              <input type="password" id="card-cvv" placeholder="•••" value="882" maxlength="3" class="w-full bg-obsidian border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-violet-500 font-mono text-center tracking-widest" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: NetBanking -->
+        <div id="tab-netbanking" class="bg-surface border border-zinc-800 rounded-3xl p-6 space-y-4 hidden">
+          <label class="text-xs font-bold text-zinc-300 block">Select Financial Institution</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button class="bank-pill p-3 rounded-xl border border-violet-500/40 bg-violet-950/20 text-xs font-bold text-white text-center">HDFC Bank</button>
+            <button class="bank-pill p-3 rounded-xl border border-zinc-800 bg-obsidian text-xs font-bold text-zinc-400 hover:text-white text-center">ICICI Bank</button>
+            <button class="bank-pill p-3 rounded-xl border border-zinc-800 bg-obsidian text-xs font-bold text-zinc-400 hover:text-white text-center">Axis Bank</button>
+            <button class="bank-pill p-3 rounded-xl border border-zinc-800 bg-obsidian text-xs font-bold text-zinc-400 hover:text-white text-center">SBI</button>
+          </div>
+        </div>
+
+        <!-- Patron Dispatch Info -->
+        <div class="bg-surface border border-zinc-800 rounded-3xl p-6 space-y-4">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-zinc-400">Patron Information</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input type="text" id="cust-name-input" placeholder="Your Name" value="Aditya Purohit" class="bg-obsidian border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-violet-500" />
+            <input type="text" id="cust-dest-input" placeholder="Table # or Delivery Address" value="Table 04 (Indoor Lounge)" class="bg-obsidian border border-zinc-800 rounded-xl px-4 py-2.5 text-xs text-zinc-100 focus:outline-none focus:border-violet-500" />
+          </div>
+        </div>
+
+        <!-- Submit Action -->
+        <button id="trigger-payment-btn" class="w-full bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-extrabold py-4 rounded-2xl text-sm transition-all shadow-xl shadow-violet-600/30 flex items-center justify-center gap-2 active:scale-95">
+          <span id="btn-pay-text">Authorize & Pay ₹0</span>
+        </button>
+      </section>
+
+      <!-- Right Column: Live Order Summary Ledger (5 cols) -->
+      <aside class="lg:col-span-5 bg-surface border border-zinc-800 rounded-3xl p-6 sticky top-24 space-y-6">
+        <div>
+          <h2 class="font-display text-lg font-bold text-zinc-100">Order Ledger</h2>
+          <p class="text-xs text-zinc-400 mt-0.5">Live items pulled from your session</p>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="checkout-items-list" class="space-y-3 border-y border-zinc-800/80 py-4 max-h-60 overflow-y-auto">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Price Math -->
+        <div class="space-y-2 text-xs text-zinc-400">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="ledger-subtotal" class="font-semibold text-zinc-200">₹0</span>
+          </div>
+          <div class="flex justify-between">
+            <span>GST (5%)</span>
+            <span id="ledger-tax" class="font-semibold text-zinc-200">₹0</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Insulated Culinary Packaging</span>
+            <span class="font-semibold text-zinc-200">₹30</span>
+          </div>
+          <div class="flex justify-between text-base font-extrabold text-zinc-100 pt-3 border-t border-zinc-800">
+            <span>Payable Amount</span>
+            <span id="ledger-grand-total" class="text-violet-400 font-display text-xl font-black">₹0</span>
+          </div>
+        </div>
+
+        <div class="p-3 bg-violet-500/10 border border-violet-500/20 rounded-xl text-[11px] text-violet-300 flex items-center gap-2">
+          <span>🛡️</span>
+          <span>End-to-end sandbox verification active.</span>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- Verification Loading Overlay -->
+    <div id="verification-overlay" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+      <div class="text-center space-y-5 max-w-sm">
+        <div class="w-16 h-16 border-4 border-violet-500/20 border-t-violet-500 rounded-full animate-spin mx-auto"></div>
+        <h3 class="font-display text-xl font-bold text-white tracking-wide">Contacting Gateway...</h3>
+        <p id="verification-status" class="text-xs font-mono text-zinc-400">Tokenizing VPA parameters...</p>
+      </div>
+    </div>
+
+    <!-- Confirmed Digital Receipt View (Hidden initially) -->
+    <div id="receipt-stage" class="hidden max-w-xl mx-auto py-10 space-y-6">
+      
+      <div class="bg-surface border border-zinc-800 rounded-3xl p-8 space-y-6 shadow-2xl relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl"></div>
+
+        <div class="text-center space-y-2 border-b border-zinc-800 pb-6">
+          <div class="w-14 h-14 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-full flex items-center justify-center text-2xl mx-auto mb-3">
+            ✓
+          </div>
+          <span class="text-[11px] uppercase tracking-widest text-emerald-400 font-mono font-bold">Transaction Settled</span>
+          <h2 class="font-display text-3xl font-black text-white">Payment Confirmed</h2>
+          <p class="text-xs text-zinc-400">Order ticket dispatched to the bar & kitchen pass.</p>
+        </div>
+
+        <div class="space-y-3 font-mono text-xs">
+          <div class="flex justify-between text-zinc-400">
+            <span>Reference ID:</span>
+            <span id="final-order-id" class="text-violet-400 font-bold">#NOC-8910</span>
+          </div>
+          <div class="flex justify-between text-zinc-400">
+            <span>Timestamp:</span>
+            <span id="final-timestamp" class="text-zinc-200">17-10-2026, 01:45 AM</span>
+          </div>
+          <div class="flex justify-between text-zinc-400">
+            <span>Patron Name:</span>
+            <span id="final-cust-name" class="text-zinc-200">Aditya Purohit</span>
+          </div>
+          <div class="flex justify-between text-zinc-400">
+            <span>Dispatch Point:</span>
+            <span id="final-cust-dest" class="text-zinc-200">Table 04</span>
+          </div>
+          <div class="flex justify-between text-zinc-400 border-t border-zinc-800 pt-3 text-sm">
+            <span class="font-bold text-white">Paid via UPI:</span>
+            <span id="final-paid-total" class="font-bold text-emerald-400 text-base">₹0</span>
+          </div>
+        </div>
+
+        <!-- Kitchen Status Tracker Bar -->
+        <div class="bg-obsidian border border-zinc-800 p-4 rounded-2xl space-y-2">
+          <div class="flex justify-between text-xs">
+            <span class="font-bold text-zinc-200">Kitchen Live Ticket:</span>
+            <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              Preparing Now
+            </span>
+          </div>
+          <div class="w-full bg-zinc-800 h-2 rounded-full overflow-hidden">
+            <div class="bg-gradient-to-r from-violet-500 to-emerald-400 h-full w-2/5 animate-pulse"></div>
+          </div>
+          <p class="text-[10px] text-zinc-500 text-right">Estimated Ready: 15–20 Mins</p>
+        </div>
+
+        <div class="flex gap-3 pt-2">
+          <button onclick="window.print()" class="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white font-bold py-3 rounded-xl text-xs transition">
+            🖨️ Print Receipt
+          </button>
+          <a href="index.html" class="flex-1 bg-violet-600 hover:bg-violet-500 text-white font-bold py-3 rounded-xl text-xs text-center transition">
+            Return to Menu
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    // 1. Fetch Cart from LocalStorage
+    const cart = JSON.parse(localStorage.getItem('nocturne_cart')) || [];
+    const PACKAGING_FEE = 30;
+    const GST_RATE = 0.05;
+
+    const itemsContainer = document.getElementById('checkout-items-list');
+    const ledgerSubtotal = document.getElementById('ledger-subtotal');
+    const ledgerTax = document.getElementById('ledger-tax');
+    const ledgerGrandTotal = document.getElementById('ledger-grand-total');
+    const btnPayText = document.getElementById('btn-pay-text');
+
+    // 2. Render Order Ledger
+    function renderLedger() {
+      if (cart.length === 0) {
+        itemsContainer.innerHTML = `<p class="text-xs text-zinc-500 py-4 text-center">Your tray is empty. <a href="index.html" class="text-violet-400 underline">Add items</a></p>`;
+        ledgerGrandTotal.textContent = '₹0';
+        btnPayText.textContent = 'Pay ₹0';
+        return;
+      }
+
+      itemsContainer.innerHTML = '';
+      cart.forEach(item => {
+        const row = document.createElement('div');
+        row.className = "flex justify-between items-center text-xs";
+        row.innerHTML = `
+          <div>
+            <span class="font-bold text-zinc-200">${item.name}</span>
+            <span class="text-zinc-500 ml-1">× ${item.qty}</span>
+          </div>
+          <span class="font-mono text-zinc-300">₹${item.price * item.qty}</span>
+        `;
+        itemsContainer.appendChild(row);
+      });
+
+      const subtotal = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+      const tax = Math.round(subtotal * GST_RATE);
+      const grandTotal = subtotal + tax + PACKAGING_FEE;
+
+      ledgerSubtotal.textContent = `₹${subtotal}`;
+      ledgerTax.textContent = `₹${tax}`;
+      ledgerGrandTotal.textContent = `₹${grandTotal}`;
+      btnPayText.textContent = `Authorize & Pay ₹${grandTotal}`;
+    }
+
+    // 3. Payment Method Switcher
+    const tabs = document.querySelectorAll('.pay-tab');
+    const tabUpi = document.getElementById('tab-upi');
+    const tabCard = document.getElementById('tab-card');
+    const tabNetbanking = document.getElementById('tab-netbanking');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('active', 'bg-violet-600', 'text-white', 'shadow-md', 'shadow-violet-600/30');
+          t.classList.add('text-zinc-400');
+        });
+        tab.classList.add('active', 'bg-violet-600', 'text-white', 'shadow-md', 'shadow-violet-600/30');
+        tab.classList.remove('text-zinc-400');
+
+        const selected = tab.getAttribute('data-tab');
+        tabUpi.classList.toggle('hidden', selected !== 'upi');
+        tabCard.classList.toggle('hidden', selected !== 'card');
+        tabNetbanking.classList.toggle('hidden', selected !== 'netbanking');
+      });
+    });
+
+    // 4. Verification & Order Clearance Engine
+    const triggerPaymentBtn = document.getElementById('trigger-payment-btn');
+    const overlay = document.getElementById('verification-overlay');
+    const statusText = document.getElementById('verification-status');
+    const checkoutStage = document.getElementById('checkout-stage');
+    const receiptStage = document.getElementById('receipt-stage');
+
+    const custNameInput = document.getElementById('cust-name-input');
+    const custDestInput = document.getElementById('cust-dest-input');
+
+    triggerPaymentBtn.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert("Your tray is empty. Please select an item from the menu first.");
+        window.location.href = 'index.html';
+        return;
+      }
+
+      // Step 1: Open verification overlay
+      overlay.classList.remove('hidden');
+
+      // Step 2: Realistic simulated delay sequence
+      setTimeout(() => {
+        statusText.textContent = "2-Factor Handshake with NPCI...";
+      }, 700);
+
+      setTimeout(() => {
+        statusText.textContent = "Payment Verified. Generating Kitchen Ticket...";
+      }, 1400);
+
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        checkoutStage.classList.add('hidden');
+        receiptStage.classList.remove('hidden');
+
+        // Populate Final Digital Receipt
+        const randomRef = `#NOC-${Math.floor(1000 + Math.random() * 9000)}`;
+        document.getElementById('final-order-id').textContent = randomRef;
+        document.getElementById('final-cust-name').textContent = custNameInput.value.trim() || "Guest Patron";
+        document.getElementById('final-cust-dest').textContent = custDestInput.value.trim() || "Dine-in / Counter";
+        document.getElementById('final-paid-total').textContent = ledgerGrandTotal.textContent;
+
+        const now = new Date();
+        document.getElementById('final-timestamp').textContent = now.toLocaleDateString() + ", " + now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        // Wipe Cart State after successful payment
+        localStorage.removeItem('nocturne_cart');
+      }, 2100);
+    });
+
+    // Mount
+    renderLedger();
+  </script>
+</body>
+</html>
